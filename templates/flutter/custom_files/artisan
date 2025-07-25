@@ -1,0 +1,237 @@
+import 'dart:io';
+import 'package:recase/recase.dart'; 
+
+void main(List<String> arguments) {
+  if (arguments.isEmpty) {
+    print('Usage: dart artisan <command> <model_name>');
+    exit(1);
+  }
+
+  final command = arguments[0].toLowerCase();
+
+  switch (command) {
+    case 'make:rest-api-resource':
+      if (arguments.length < 2) {
+        print('Please provide a model name in snake case.');
+        exit(1);
+      }
+      makeRestApiResource(arguments[1]);
+      break;
+    default:
+      print("Unknown command '$command'");
+      print('Available commands:');
+      print(' - make:rest-api-resource <model_name>');
+      exit(1);
+  }
+}
+
+void makeRestApiResource(String modelNameInSnakeCase) {
+  final modelNameInPascalCase = ReCase(modelNameInSnakeCase).pascalCase;
+  final modelNameInCamelCase = ReCase(modelNameInSnakeCase).camelCase;
+  final modelNameInKebabCase = ReCase(modelNameInSnakeCase).paramCase;
+
+  makeRestApiResourceModel(modelNameInSnakeCase, modelNameInPascalCase, modelNameInCamelCase);
+  makeRestApiResourceService(modelNameInSnakeCase, modelNameInPascalCase, modelNameInCamelCase);
+  makeRestApiResourceApiClient(modelNameInSnakeCase, modelNameInPascalCase, modelNameInCamelCase, modelNameInKebabCase);
+  //makeRestApiResourceForm(modelNameInSnakeCase, modelNameInPascalCase, modelNameInCamelCase);
+  
+}
+
+void makeRestApiResourceModel(String modelNameInSnakeCase, String modelNameInPascalCase, String modelNameInCamelCase){
+  final modelFilePath = 'lib/models/${modelNameInSnakeCase}.dart';
+final modelContent = '''
+import '../services/${modelNameInSnakeCase}_service.dart';
+
+class $modelNameInPascalCase {
+  late String id;
+
+  $modelNameInPascalCase({
+    required this.id,
+  });
+
+  factory $modelNameInPascalCase.fromJson(Map<String, dynamic> json) {
+    return $modelNameInPascalCase(
+      id: json['id'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+    };
+  }
+
+  Future<void> refresh() async {
+    $modelNameInPascalCase updated = await ${modelNameInPascalCase}Service.find(id);
+    id = updated.id;
+  }
+}
+''';
+
+  File(modelFilePath).writeAsStringSync(modelContent);
+  print('Model $modelNameInPascalCase created at $modelFilePath');
+
+}
+
+void makeRestApiResourceService(String modelNameInSnakeCase, String modelNameInPascalCase, String modelNameInCamelCase){
+  final serviceFilePath = 'lib/services/${modelNameInSnakeCase}_service.dart';
+  final serviceContent = '''
+import '../api_clients/${modelNameInSnakeCase}_api_client.dart';
+import '../models/${modelNameInSnakeCase}.dart';
+import '../utilities/global.dart';
+
+class ${modelNameInPascalCase}Service {
+  static Future<List<$modelNameInPascalCase>> get() async {
+    try {
+      List<dynamic> data = await ${modelNameInPascalCase}ApiClient.get();
+      return data.map((json) => $modelNameInPascalCase.fromJson(json)).toList();
+    } catch (error) {
+      printOnDebug(error);
+      rethrow;
+    }
+  }
+
+  static Future<$modelNameInPascalCase> find(String id) async {
+    try {
+      dynamic data = await ${modelNameInPascalCase}ApiClient.find(id);
+      return $modelNameInPascalCase.fromJson(data);
+    } catch (error) {
+      printOnDebug(error);
+      rethrow;
+    }
+  }
+
+  static Future<$modelNameInPascalCase> create(Map<String, dynamic> formData) async {
+    try {
+      dynamic data = await ${modelNameInPascalCase}ApiClient.create(formData);
+      return $modelNameInPascalCase.fromJson(data);
+    } catch (error) {
+      printOnDebug(error);
+      rethrow;
+    }
+  }
+
+  static Future<$modelNameInPascalCase> update(Map<String, dynamic> formData, String id) async {
+    try {
+      dynamic data = await ${modelNameInPascalCase}ApiClient.update(id, formData);
+      return $modelNameInPascalCase.fromJson(data);
+    } catch (error) {
+      printOnDebug(error);
+      rethrow;
+    }
+  }
+
+  static Future<void> delete(String id) async {
+    try {
+      await ${modelNameInPascalCase}ApiClient.delete(id);
+    } catch (error) {
+      printOnDebug(error);
+      rethrow;
+    }
+  }
+}
+''';
+
+  // Cria o arquivo de serviço
+  File(serviceFilePath).writeAsStringSync(serviceContent);
+  print('Service ${modelNameInPascalCase} created at $serviceFilePath');
+
+}
+
+void makeRestApiResourceApiClient(String modelNameInSnakeCase, String modelNameInPascalCase, String modelNameInCamelCase, String modelNameInKebabCase) {
+  final apiClientFilePath = 'lib/api_clients/${modelNameInSnakeCase}_api_client.dart';
+  
+  final apiClientContent = '''
+import '../exceptions/api_limit_exception.dart';
+import '../exceptions/not_found_exception.dart';
+import '../utilities/api.dart';
+
+class ${modelNameInPascalCase}ApiClient {
+  static Future<List<dynamic>> get() async {
+    try {
+      final Map<String, dynamic> queryParameters = {};
+
+      final response = await Api.get('/${modelNameInKebabCase}s', queryParameters: queryParameters);
+
+      if (response.statusCode == 200) {
+        return response.data['data'];
+      } else if (response.statusCode == 429) {
+        throw ApiLimitException();
+      } else {
+        throw Exception(
+            'A solicitação não foi concluída com sucesso. Foi recebido o código: \${response.statusCode}');
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  static Future<dynamic> find(String id) async {
+    try {
+      final response = await Api.get('/${modelNameInKebabCase}s/\$id');
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else if (response.statusCode == 404) {
+        throw NotFoundException();
+      } else if (response.statusCode == 429) {
+        throw ApiLimitException();
+      } else {
+        throw Exception(
+            'A solicitação não foi concluída com sucesso. Foi recebido o código: \${response.statusCode}');
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  static Future<dynamic> create(Map<String, dynamic> data) async {
+    try {
+      final response = await Api.post('/${modelNameInKebabCase}s', data);
+      if (response.statusCode == 201) {
+        return response.data['data'];
+      } else if (response.statusCode == 429) {
+        throw ApiLimitException();
+      } else {
+        throw Exception(
+            'A solicitação não foi concluída com sucesso. Foi recebido o código: \${response.statusCode}');
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  static Future<dynamic> update(String id, Map<String, dynamic> data) async {
+    try {
+      final response = await Api.put('/${modelNameInKebabCase}s/\$id', data);
+      if (response.statusCode == 200) {
+        return response.data['data'];
+      } else if (response.statusCode == 429) {
+        throw ApiLimitException();
+      } else {
+        throw Exception(
+            'A solicitação não foi concluída com sucesso. Foi recebido o código: \${response.statusCode}');
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  static Future<void> delete(String id) async {
+    try {
+      final response = await Api.delete('/${modelNameInKebabCase}s/\$id');
+      if (response.statusCode != 200) {
+        throw Exception(
+            'A solicitação não foi concluída com sucesso. Foi recebido o código: \${response.statusCode}');
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+}
+''';
+
+  // Cria o arquivo do cliente de API
+  File(apiClientFilePath).writeAsStringSync(apiClientContent);
+  print('API Client ${modelNameInPascalCase} created at $apiClientFilePath');
+}
