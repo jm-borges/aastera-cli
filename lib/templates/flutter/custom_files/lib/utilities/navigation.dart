@@ -8,10 +8,10 @@ import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../config/routes/web_routes.dart';
 import '../views/web/auth/login/login_screen.dart';
-import '../utilities/user_secure_storage.dart';
-import '../utilities/web_cookie_storage.dart';
-import '../utilities/api.dart';
-import '../utilities/firebase.dart';
+import 'user_secure_storage.dart';
+import 'web_cookie_storage.dart';
+import 'api.dart';
+import 'firebase.dart';
 import '../models/user.dart';
 
 Route<dynamic>? handleWebRouteGeneration(

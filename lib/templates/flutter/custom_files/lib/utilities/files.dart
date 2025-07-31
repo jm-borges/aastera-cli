@@ -17,11 +17,11 @@ import '../exceptions/known_exception.dart';
 import '../lists/file_extensions.dart';
 import '../maps/file_extensions.dart';
 import '../providers/loading_indicator.dart';
-import '../utilities/cache.dart';
-import '../utilities/file_picker.dart';
-import '../utilities/global.dart';
-import '../utilities/image_picker.dart';
-import '../utilities/snackbars.dart';
+import 'cache.dart';
+import 'file_picker.dart';
+import 'global.dart';
+import 'image_picker.dart';
+import 'snackbars.dart';
 
 /// Handles the process of picking a file or image from the user's device.
 ///

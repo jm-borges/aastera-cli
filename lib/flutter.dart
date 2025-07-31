@@ -2,15 +2,11 @@ import 'package:path/path.dart' as p;
 import 'dart:io';
 import '../utils/file_utils.dart';
 import '../utils/exec.dart';
+import '../utils/path.dart';
 
 Future<void> initFlutterProject(String name) async {
   final outputPath = p.join(Directory.current.path, name);
-  final templatePath = p.join(
-    Directory.current.path,
-    'templates',
-    'flutter',
-    'custom_files',
-  );
+  final templatePath = await getTemplatePath('flutter/custom_files');
 
   print('🔧 Creating Flutter project "$name"...');
 
@@ -72,10 +68,9 @@ void _printFinalInstructions(String projectName) {
 
       ▫️ Configure Firebase:
          flutterfire configure
-      
-      ▫️Move the firebase_options file:
-          Move the file generated to the folder lib/config/firebase
-         
+          
+      ▫️ Move the firebase_options file:
+         Move the file generated to the folder lib/config/firebase
 
   🧱  App Identity:
       📦  Install `rename` package if needed:
@@ -95,7 +90,6 @@ void _printFinalInstructions(String projectName) {
       ▫️ Configure splash screen:
          set the image and colors in the pubspec.yaml file
          dart run flutter_native_splash:create
-
   ''');
 
   print('🚀 Your project is ready! Happy coding 💙');

@@ -8,8 +8,6 @@ Future<void> copyTemplateFiles(
 }) async {
   final source = Directory(from);
 
-  print(source);
-
   if (!await source.exists()) return;
 
   await for (FileSystemEntity entity in source.list(recursive: true)) {
