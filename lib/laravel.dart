@@ -6,6 +6,7 @@ import '../utils/exec.dart';
 Future<void> initLaravelProject(String name) async {
   final baseTemplatePath = p.join(
     Directory.current.path,
+    'lib',
     'templates',
     'laravel',
   );
