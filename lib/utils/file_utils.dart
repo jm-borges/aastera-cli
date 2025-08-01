@@ -27,3 +27,11 @@ Future<void> copyTemplateFiles(
     }
   }
 }
+
+Future<void> applyCustomTemplate(
+  String templatePath,
+  String outputPath,
+  String projectName,
+) async {
+  await copyTemplateFiles(templatePath, outputPath, projectName: projectName);
+}

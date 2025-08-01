@@ -11,7 +11,7 @@ Future<void> initFlutterProject(String name) async {
   print('🔧 Creating Flutter project "$name"...');
 
   await _createFlutterProject(name);
-  await _applyCustomTemplate(templatePath, outputPath, name);
+  await applyCustomTemplate(templatePath, outputPath, name);
   await _replaceTestFolderWithEmpty(outputPath);
   await _installDependencies(outputPath);
   await _runEnvScriptIfExists(outputPath);
@@ -21,14 +21,6 @@ Future<void> initFlutterProject(String name) async {
 
 Future<void> _createFlutterProject(String name) async {
   await exec('flutter create $name');
-}
-
-Future<void> _applyCustomTemplate(
-  String templatePath,
-  String outputPath,
-  String projectName,
-) async {
-  await copyTemplateFiles(templatePath, outputPath, projectName: projectName);
 }
 
 Future<void> _replaceTestFolderWithEmpty(String outputPath) async {

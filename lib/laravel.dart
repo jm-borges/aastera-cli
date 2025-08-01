@@ -1,25 +1,18 @@
+import 'package:aastera/utils/path.dart';
 import 'package:path/path.dart' as p;
 import 'dart:io';
 import '../utils/file_utils.dart';
 import '../utils/exec.dart';
 
 Future<void> initLaravelProject(String name) async {
-  final baseTemplatePath = p.join(
-    Directory.current.path,
-    'lib',
-    'templates',
-    'laravel',
-  );
-  final customFilesPath = p.join(baseTemplatePath, 'custom_files');
-  final specialFilesPath = p.join(baseTemplatePath, 'special_files');
   final outputPath = p.join(Directory.current.path, name);
-
-  print(outputPath);
+  final templatePath = await getTemplatePath('laravel/custom_files');
+  final specialFilesPath = await getTemplatePath('laravel/special_files');
 
   print('🔧 Criando projeto Laravel "$name"...');
 
   await exec('composer create-project laravel/laravel $name');
-  await copyTemplateFiles(customFilesPath, outputPath);
+  await applyCustomTemplate(templatePath, outputPath, name);
   await exec("echo no | php artisan install:api", cwd: outputPath);
   await exec("composer require spatie/laravel-medialibrary", cwd: outputPath);
   await exec("composer require bugsnag/bugsnag-laravel", cwd: outputPath);
