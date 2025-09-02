@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../../forms/auth/register_form.dart';
 import '../../../../../utilities/global.dart';
-import '../../components/confirm_password_field.dart';
-import '../../components/email_field.dart';
-import '../../components/name_field.dart';
-import '../../components/password_field.dart';
+import '../../../components/fields/confirm_password_field.dart';
+import '../../../components/fields/email_field.dart';
+import '../../../components/fields/name_field.dart';
+import '../../../components/fields/password_field.dart';
 
 class RegisterFormWidget extends StatefulWidget {
   final RegisterForm form;

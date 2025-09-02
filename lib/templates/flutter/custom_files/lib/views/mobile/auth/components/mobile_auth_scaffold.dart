@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../providers/loading_indicator.dart';
 import 'package:provider/provider.dart';
-
-import '../../../providers/loading_indicator.dart';
 
 class MobileAuthScaffold extends StatefulWidget {
   final Widget body;

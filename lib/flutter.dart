@@ -54,16 +54,6 @@ void _printFinalInstructions(String projectName) {
   print('📋 Next Steps (Checklist):');
 
   print('''
-  🔗  Firebase Configuration:
-      ▫️ Install FlutterFire CLI:
-         dart pub global activate flutterfire_cli
-
-      ▫️ Configure Firebase:
-         flutterfire configure
-          
-      ▫️ Move the firebase_options file:
-         Move the file generated to the folder lib/config/firebase
-
   🧱  App Identity:
       📦  Install `rename` package if needed:
          flutter pub global activate rename
@@ -73,6 +63,16 @@ void _printFinalInstructions(String projectName) {
 
       ▫️ Rename bundleId:
          rename setBundleId --targets ios,android,web,windows,linux --value "com.example.app"
+
+  🔗  Firebase Configuration:
+      ▫️ Install FlutterFire CLI:
+         dart pub global activate flutterfire_cli
+
+      ▫️ Configure Firebase:
+         flutterfire configure
+          
+      ▫️ Move the firebase_options file:
+         Move the file generated to the folder lib/config/firebase
 
   🖼️  Branding:
       ▫️ Configure app icon:

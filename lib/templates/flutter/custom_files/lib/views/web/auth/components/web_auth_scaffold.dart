@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/loading_indicator.dart';
+import '../../../../providers/loading_indicator.dart';
 
 class WebAuthScaffold extends StatefulWidget {
   final Widget body;

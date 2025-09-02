@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../forms/auth/forgot_password_form.dart';
-import '../../components/mobile_auth_scaffold.dart';
+import '../../auth/components/mobile_auth_scaffold.dart';
 import '../components/login_link.dart';
 import '../components/register_link.dart';
 import 'components/forgot_password_form_widget.dart';

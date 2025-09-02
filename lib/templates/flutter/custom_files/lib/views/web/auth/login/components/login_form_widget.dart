@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../forms/auth/login_form.dart';
 import '../../../../../utilities/global.dart';
-import '../../components/email_field.dart';
-import '../../components/password_field.dart';
+import '../../../components/fields/email_field.dart';
+import '../../../components/fields/password_field.dart';
 
 class LoginFormWidget extends StatefulWidget {
   final LoginForm form;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../forms/auth/forgot_password_form.dart';
 import '../../../../../utilities/global.dart';
-import '../../components/email_field.dart';
+import '../../../components/fields/email_field.dart';
 
 class ForgotPasswordFormWidget extends StatefulWidget {
   final ForgotPasswordForm form;

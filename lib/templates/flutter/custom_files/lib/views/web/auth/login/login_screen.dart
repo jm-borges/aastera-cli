@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../forms/auth/login_form.dart';
-import '../../components/web_auth_scaffold.dart';
+import '../components/web_auth_scaffold.dart';
 import '../components/forgot_password_link.dart';
 import '../components/register_link.dart';
 import 'components/login_form_widget.dart';

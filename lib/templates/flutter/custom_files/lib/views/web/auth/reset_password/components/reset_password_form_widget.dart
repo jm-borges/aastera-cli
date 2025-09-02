@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../forms/auth/reset_password_form.dart';
 import '../../../../../utilities/global.dart';
-import '../../components/confirm_password_field.dart';
-import '../../components/password_field.dart';
+import '../../../components/fields/confirm_password_field.dart';
+import '../../../components/fields/password_field.dart';
 
 class ResetPasswordFormWidget extends StatefulWidget {
   final ResetPasswordForm form;

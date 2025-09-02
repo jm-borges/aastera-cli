@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../forms/auth/register_form.dart';
-import '../../components/mobile_auth_scaffold.dart';
+import '../../auth/components/mobile_auth_scaffold.dart';
 import '../components/login_link.dart';
 import 'components/register_form_widget.dart';
 
