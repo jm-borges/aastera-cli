@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../config/routes/web_routes.dart';
 import '../views/web/auth/login/login_screen.dart';
-import 'user_secure_storage.dart';
-import 'web_cookie_storage.dart';
+import 'storage/cookie/user_cookie_service.dart';
+import 'storage/secure_storage/user_secure_storage_service.dart';
 import 'api.dart';
 import 'firebase.dart';
 import '../models/user.dart';
@@ -73,7 +73,7 @@ Future<void> _updateSecureStorage(UserProvider userProvider) async {
 }
 
 Future<void> _setCookieStorageWithUserData(UserProvider userProvider) async {
-  await WebCookieStorage.setUserData(
+  await UserCookieService.setUserData(
     jsonEncode({
       'id': userProvider.id,
       'bearer_token': userProvider.bearerToken,
@@ -82,7 +82,7 @@ Future<void> _setCookieStorageWithUserData(UserProvider userProvider) async {
 }
 
 Future<void> _setSecureStorageWithUserData(UserProvider userProvider) async {
-  await UserSecureStorage.setUserData({
+  await UserSecureStorageService.setUserData({
     'id': userProvider.id,
     'bearer_token': userProvider.bearerToken,
     'user': userProvider.user,

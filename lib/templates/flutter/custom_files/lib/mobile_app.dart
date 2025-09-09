@@ -12,7 +12,7 @@ import 'utilities/api.dart';
 import 'utilities/global.dart';
 import 'utilities/snackbars.dart';
 import 'utilities/firebase.dart';
-import 'utilities/user_secure_storage.dart';
+import 'utilities/storage/secure_storage/user_secure_storage_service.dart';
 import 'providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +110,7 @@ class _MobileAppState extends State<MobileApp> {
 
   /// Clears stored user data and redirects to [LoginScreen].
   Future<Widget> _unsetUserAndGoToAuthScreen() async {
-    await UserSecureStorage.unsetUserData();
+    await UserSecureStorageService.clearUserData();
     return const LoginScreen();
   }
 
@@ -124,7 +124,7 @@ class _MobileAppState extends State<MobileApp> {
   ///
   /// Returns `null` if no user data is found.
   Future<Map<String, dynamic>?> _getUserData() async {
-    final userData = await UserSecureStorage.getUserData();
+    final userData = await UserSecureStorageService.getUserData();
     return userData['user'] != null ? userData : null;
   }
 

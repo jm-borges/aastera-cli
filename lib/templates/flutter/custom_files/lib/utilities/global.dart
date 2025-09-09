@@ -20,16 +20,18 @@ import 'snackbars.dart';
 ///
 /// - Parameters:
 ///   - action: The asynchronous action to be executed.
-///   - loadingIndicator: The loading indicator to be shown while the action is in progress.
 ///   - context: The BuildContext used to show the error snackbar.
 ///
 /// - Throws: Any exception that is not a KnownException is caught and logged,
 ///   and a generic error message is displayed in a snackbar.
 Future<void> executeAction(
   Future<void> Function() action,
-  LoadingIndicator loadingIndicator,
   BuildContext context,
 ) async {
+  LoadingIndicator loadingIndicator = Provider.of<LoadingIndicator>(
+    context,
+    listen: false,
+  );
   try {
     loadingIndicator.show();
     await action();
@@ -50,13 +52,8 @@ Future<void> executeFormAction(
   BuildContext context, {
   String? errorMessage,
 }) async {
-  LoadingIndicator loadingIndicator = Provider.of<LoadingIndicator>(
-    context,
-    listen: false,
-  );
-
   if (key.currentState?.validate() ?? false) {
-    await executeAction(action, loadingIndicator, context);
+    await executeAction(action, context);
   } else {
     showErrorSnackBar(
       context,

@@ -9,7 +9,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import '../aux_classes/file_info.dart';
+import '../auxiliary/file_info.dart';
 import '../config/config.dart';
 import '../config/theme_data.dart';
 import '../enums/file_picker_mode.dart';

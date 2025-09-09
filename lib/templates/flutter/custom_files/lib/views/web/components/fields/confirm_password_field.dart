@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../forms/auth/auth_form_with_register.dart';
+import '../../../../forms/auth/auth_form_with_register.dart';
 
 class ConfirmPasswordField extends StatefulWidget {
   final AuthFormWithRegister form;

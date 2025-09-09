@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../forms/auth/auth_form.dart';
+import '../../../../forms/auth/auth_form.dart';
 
 class EmailField extends StatefulWidget {
   final AuthForm form;

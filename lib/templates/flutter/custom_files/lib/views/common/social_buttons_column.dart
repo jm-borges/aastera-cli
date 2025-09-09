@@ -1,8 +1,8 @@
+import 'apple_sign_in_button.dart';
+import 'google_sign_in_button.dart';
+import 'meta_sign_in_button.dart';
+import 'microsoft_sign_in_button.dart';
 import 'package:flutter/material.dart';
-import 'package:oracle_app/views/common/apple_sign_in_button.dart';
-import 'package:oracle_app/views/common/google_sign_in_button.dart';
-import 'package:oracle_app/views/common/meta_sign_in_button.dart';
-import 'package:oracle_app/views/common/microsoft_sign_in_button.dart';
 
 class SocialButtonsColumn extends StatefulWidget {
   const SocialButtonsColumn({super.key});

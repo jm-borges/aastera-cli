@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import '../../../../../forms/auth/register_form.dart';
+import 'package:flutter/material.dart';
 import '../../../../../utilities/global.dart';
 import '../../../components/fields/confirm_password_field.dart';
 import '../../../components/fields/email_field.dart';

@@ -2,14 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'config/config.dart';
 import 'config/deep_linking.dart';
 import 'config/routes/web_routes.dart';
 import 'config/theme_data.dart';
 import 'exceptions/known_exception.dart';
 import 'main.dart';
-import 'providers/loading_indicator.dart';
 import 'providers/user_provider.dart';
 import 'services/user_service.dart';
 import 'utilities/navigation.dart';
@@ -17,7 +15,7 @@ import 'utilities/api.dart';
 import 'utilities/firebase.dart';
 import 'utilities/global.dart';
 import 'utilities/snackbars.dart';
-import 'utilities/web_cookie_storage.dart';
+import 'utilities/storage/cookie/user_cookie_service.dart';
 import 'views/web/auth/login/login_screen.dart';
 import 'views/web/main/home/home_screen.dart';
 
@@ -31,7 +29,6 @@ class WebApp extends StatefulWidget {
 class _WebAppState extends State<WebApp> {
   late Future<Widget> _futureHomeScreen;
   late UserProvider _userProvider;
-  late LoadingIndicator _loadingIndicator;
 
   @override
   void initState() {
@@ -152,7 +149,7 @@ class _WebAppState extends State<WebApp> {
   Future<Widget> _getInitialScreen() async {
     try {
       final Map<String, dynamic> userData =
-          await WebCookieStorage.getUserData() ?? {};
+          await UserCookieService.getUserData() ?? {};
 
       if (userData['id'] != null) {
         return await _handleUserDataExists(userData);
@@ -193,13 +190,12 @@ class _WebAppState extends State<WebApp> {
     if (userExists) {
       await executeAction(
         () async => await _handleUserExists(userData),
-        _loadingIndicator,
         context,
       );
 
       return HomeScreen();
     } else {
-      WebCookieStorage.unsetUserData();
+      UserCookieService.unsetUserData();
     }
 
     return const LoginScreen();
@@ -247,6 +243,5 @@ class _WebAppState extends State<WebApp> {
   ///
   void _initProviders() {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
-    _loadingIndicator = Provider.of<LoadingIndicator>(context, listen: false);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../forms/main/user_form.dart';
+import '../../../../forms/main/user_form.dart';
 
 class DocumentNumberField extends StatefulWidget {
   final UserForm form;

@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../aux_classes/file_info.dart';
+import '../auxiliary/file_info.dart';
 import '../providers/user_provider.dart';
 import '../services/user_service.dart';
 import '../utilities/files.dart';

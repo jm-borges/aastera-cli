@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../forms/auth/auth_form_with_name.dart';
+import '../../../../forms/auth/auth_form_with_name.dart';
 
 class NameField extends StatefulWidget {
   final AuthFormWithName form;
