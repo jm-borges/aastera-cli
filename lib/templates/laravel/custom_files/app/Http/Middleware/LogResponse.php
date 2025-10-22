@@ -33,7 +33,7 @@ class LogResponse
             'url' => $url,
             'status_code' => $statusCode,
             'body' => $responseBody,
-            'headers' => $response->headers(),
+            'headers' => $response->headers,
             'client_request_id' => $clientRequestId,
         ]);
     }

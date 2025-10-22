@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->integer('status_code')->nullable();
             $table->longText('body')->nullable();
+            $table->longText('headers')->nullable();
             $table->string('client_request_id')->nullable();
             $table->timestamps();
         });

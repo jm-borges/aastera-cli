@@ -1,5 +1,7 @@
 <?php
 
+(new \Bugsnag\BugsnagLaravel\OomBootstrapper())->bootstrap();
+
 use App\Http\Middleware\LogRequest;
 use App\Http\Middleware\LogResponse;
 use Illuminate\Foundation\Application;

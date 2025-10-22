@@ -16,6 +16,7 @@ class ServerResponse extends Model
         'headers',
         'status_code',
         'body',
+        'headers',
         'client_request_id',
     ];
 }

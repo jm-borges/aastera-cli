@@ -43,6 +43,11 @@ class Api {
     dio.options.headers['Authorization'] = 'Bearer $token';
   }
 
+  /// Sets the content type in the Dio instance headers.
+  static void setContentType(String? contentType) {
+    dio.options.headers['Content-Type'] = contentType ?? '';
+  }
+
   /// Removes the Bearer token from the Dio instance headers.
   static void removeBearerToken() {
     dio.options.headers.remove('Authorization');
