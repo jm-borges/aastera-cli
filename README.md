@@ -132,10 +132,12 @@ aastera_cli/
 
 ---
 
-## 👨‍💻 Maintained by
+## 👨‍💻 Author & Maintainer
+
+**João Manoel Borges**
+📧 [jm.borges7312@gmail.com](mailto:jm.borges7312@gmail.com) | [jm@jmborges.com.br](mailto:jm@jmborges.com.br) | [jm.borges@aastera.com](mailto:jm.borges@aastera.com)
 
 **Aastera Tecnologia**
-Custom software development, tools & automation
+Custom software development, tools & automation.
 [https://aastera.com](https://aastera.com)
-
 
